@@ -20,8 +20,8 @@ extern "C"{
 #include "hipnuc_imu/packet.h"
 #include "hipnuc_imu/imu_data_decode.h"
 
-#define IMU_SERIAL   "/dev/ttyUSB0"
-#define BAUD         (115200)
+// #define IMU_SERIAL   "/dev/ttyUSB0"
+// #define BAUD         (115200)
 #define GRA_ACC      (9.8)
 #define DEG_TO_RAD   (0.01745329)
 #define BUF_SIZE     1024
@@ -54,18 +54,27 @@ void timer(int sig)
 
 int main(int argc, char** argv)
 {
-	ros::init(argc, argv, "serial_imu");
+	ros::init(argc, argv, "imu_node");
 	ros::NodeHandle n;
 
-	ros::Publisher IMU_pub = n.advertise<sensor_msgs::Imu>("IMU_data", 20);
+	std::string serial_port;
+	std::string frame_id;
+	int baud_rate;
+
+	ros::NodeHandle nh_private("~");
+	nh_private.param<std::string>("serial_port", serial_port, "/dev/ttyUSB0");
+	nh_private.param<std::string>("frame_id", frame_id, "imu_link");
+	nh_private.param<int>("baud_rate", baud_rate, 115200);
+
+	ros::Publisher IMU_pub = n.advertise<sensor_msgs::Imu>("imu", 20);
 
 	serial::Serial sp;
 
 	serial::Timeout to = serial::Timeout::simpleTimeout(100);
 
-	sp.setPort(IMU_SERIAL);
+	sp.setPort(serial_port);
 
-	sp.setBaudrate(BAUD);
+	sp.setBaudrate(baud_rate);
 
 	sp.setTimeout(to);
 	
@@ -85,7 +94,7 @@ int main(int argc, char** argv)
     
 	if(sp.isOpen())
 	{
-		ROS_INFO_STREAM("/dev/ttyUSB0 is opened.");
+		ROS_INFO_STREAM( serial_port + " is opened.");
 	}
 	else
 	{
@@ -114,7 +123,7 @@ int main(int argc, char** argv)
 					packet_decode(buffer[i]);
 
 				imu_data.header.stamp = ros::Time::now();
-				imu_data.header.frame_id = "base_link";
+				imu_data.header.frame_id = frame_id;
 				puts("\033c");
 				if(receive_gwsol.tag != KItemGWSOL)
 				{
