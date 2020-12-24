@@ -118,7 +118,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -151,9 +151,9 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-add_executable(serial_imu src/serial_imu.cpp src/imu_data_decode.c src/packet.c)
+add_executable(imu_node src/imu_node.cpp src/imu_data_decode.c src/packet.c)
 add_definitions(-std=c99)
-target_link_libraries(serial_imu ${catkin_LIBRARIES})
+target_link_libraries(imu_node ${catkin_LIBRARIES})
 
 add_executable(imu_subscriber src/subscriber.cpp src/imu_data_decode.c src/packet.c)
 target_link_libraries(imu_subscriber ${catkin_LIBRARIES})

@@ -1,8 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "packet.h"
-#include "imu_data_decode.h"
+#include "hipnuc_imu/packet.h"
+#include "hipnuc_imu/imu_data_decode.h"
 
 static packet_t RxPkt; /* used for data receive */
 

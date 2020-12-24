@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "packet.h"
+#include "hipnuc_imu/packet.h"
 
 
 #ifndef ARRAY_SIZE
@@ -58,15 +58,15 @@ static packet_t *RxPkt;
 
 
  /**
- * @brief  ³õÊ¼»¯×ËÌ¬½âÂëÄ£¿é
- * @note   Íê³É³õÊ¼»¯Ò»¸öÒý½ÅÅäÖÃ
- * @param  pkt ½ÓÊÕ°üÖ¸Õë
- * @param  ½ÓÊÕ³É¹¦»Øµ÷º¯Êý
+ * @brief  ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+ * @note   ï¿½ï¿½É³ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param  pkt ï¿½ï¿½ï¿½Õ°ï¿½Ö¸ï¿½ï¿½
+ * @param  ï¿½ï¿½ï¿½Õ³É¹ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
  * @code
 
  *      void OnDataReceived(Packet_t *pkt)
  *      {
- *          pkt->buf ÎªÊý¾Ý pkt->payload_len Îª½ÓÊÕµ½µÄ×Ö½Ú³¤¶È 
+ *          pkt->buf Îªï¿½ï¿½ï¿½ï¿½ pkt->payload_len Îªï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½Ö½Ú³ï¿½ï¿½ï¿½ 
  *      }
  *
  *      Packet_t pkt;
@@ -82,9 +82,9 @@ void packet_decode_init(packet_t *pkt, on_data_received_event func)
 }
 
  /**
- * @brief  ½ÓÊÕIMUÊý¾Ý
- * @note   ÔÚ´®¿Ú½ÓÊÕÖÐ¶ÏÖÐµ÷ÓÃ´Ëº¯Êý
- * @param  c ´®¿ÚÊý¾Ý
+ * @brief  ï¿½ï¿½ï¿½ï¿½IMUï¿½ï¿½ï¿½ï¿½
+ * @note   ï¿½Ú´ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ðµï¿½ï¿½Ã´Ëºï¿½ï¿½ï¿½
+ * @param  c ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @retval CH_OK
  */
 

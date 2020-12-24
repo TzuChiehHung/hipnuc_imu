@@ -17,8 +17,8 @@ extern "C"{
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "packet.h"
-#include "imu_data_decode.h"
+#include "hipnuc_imu/packet.h"
+#include "hipnuc_imu/imu_data_decode.h"
 
 #define IMU_SERIAL   "/dev/ttyUSB0"
 #define BAUD         (115200)
