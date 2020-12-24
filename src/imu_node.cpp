@@ -60,11 +60,13 @@ int main(int argc, char** argv)
 	std::string serial_port;
 	std::string frame_id;
 	int baud_rate;
+	bool dump_data;
 
 	ros::NodeHandle nh_private("~");
 	nh_private.param<std::string>("serial_port", serial_port, "/dev/ttyUSB0");
 	nh_private.param<std::string>("frame_id", frame_id, "imu_link");
 	nh_private.param<int>("baud_rate", baud_rate, 115200);
+	nh_private.param<bool>("dump_data", dump_data, false);
 
 	ros::Publisher IMU_pub = n.advertise<sensor_msgs::Imu>("imu", 20);
 
@@ -127,22 +129,25 @@ int main(int argc, char** argv)
 				puts("\033c");
 				if(receive_gwsol.tag != KItemGWSOL)
 				{
-					dump_data_packet(&receive_imusol);
+					if(dump_data)
+						{
+							dump_data_packet(&receive_imusol);
+						}
 					publish_imu_data(&receive_imusol, &imu_data);
 					IMU_pub.publish(imu_data);
-					puts("Pleaes enter ctrl + 'c' to quit....");
 				}
 				else
 				{
 					printf("       GW ID: %4d\n", receive_gwsol.gw_id);
 					for(int i = 0; i < receive_gwsol.n; i++)
 					{
-						dump_data_packet(&receive_gwsol.receive_imusol[i]);
+						if(dump_data)
+						{
+							dump_data_packet(&receive_imusol);
+						}
 						publish_imu_data(&receive_gwsol.receive_imusol[i], &imu_data);
 						IMU_pub.publish(imu_data);
-						puts("");
 					}
-					puts("Please enter ctrl + 'c' to quit...");
 				}
 			}
 		}
@@ -177,6 +182,10 @@ void dump_data_packet(receive_imusol_packet_t *data)
 
 	if(bitmap & BIT_VALID_QUAT)
 		printf("Quat(W X Y Z):%8.3f %8.3f %8.3f %8.3f\r\n", data->quat[0], data->quat[1], data->quat[2], data->quat[3]);
+
+	puts("");
+	puts("Pleaes enter ctrl + 'c' to quit....");
+
 }
 
 void publish_imu_data(receive_imusol_packet_t *data, sensor_msgs::Imu *imu_data)

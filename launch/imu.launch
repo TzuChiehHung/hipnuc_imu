@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
 
 <launch>
-<arg name="serial_port" default="/dev/ttyUSB0" />
-<arg name="baud_rate" default="115200" />
-<arg name="frame_id" default="imu_link" />
+    <arg name="serial_port" default="/dev/ttyUSB0" />
+    <arg name="baud_rate" default="115200" />
+    <arg name="frame_id" default="imu_link" />
+    <arg name="dump_data" default="false" />
 
-<node pkg="hipnuc_imu" type="imu_node" name="imu_node">
-    <param name="serial_port" type="string" value="$(arg serial_port)" />
-    <param name="baud_rate" type="int" value="$(arg baud_rate)" />
-    <param name="frame_id" type="string" value="$(arg frame_id)" />
-</node>
+    <node pkg="hipnuc_imu" type="imu_node" name="imu_node">
+        <param name="serial_port" type="string" value="$(arg serial_port)" />
+        <param name="baud_rate" type="int" value="$(arg baud_rate)" />
+        <param name="frame_id" type="string" value="$(arg frame_id)" />
+        <param name="dump_data" type="bool" value="$(arg dump_data)" />
+    </node>
 
 </launch>
