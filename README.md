@@ -13,6 +13,13 @@ sudo apt install ros-$ROS_DISTRO-geometry-msgs
 
 ## Change permission
 
+create file `/etc/udev/rules.d/70-ttyusb.rules`:
 ```bash
-sudo chmod 777 /dev/ttyUSB0
+KERNEL=="ttyUSB[0-9]*",MODE="0666"
+```
+
+## Launch
+
+```bash
+roslaunch hipnuc_imu imu.launch
 ```
