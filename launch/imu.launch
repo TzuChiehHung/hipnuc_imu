@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
-
 <launch>
     <arg name="serial_port" default="/dev/ttyUSB0" />
     <arg name="baud_rate" default="115200" />
-    <arg name="frame_id" default="imu_link" />
+    <arg name="frame_id" default="imu" />
     <arg name="dump_data" default="false" />
 
     <node pkg="hipnuc_imu" type="imu_node" name="imu_node">
